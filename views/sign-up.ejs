@@ -1,0 +1,37 @@
+<%- include('partials/header'); %>
+<form action="/sign-up" method="POST">
+  <div class="field">
+    <span><%= locals.errors?.name?.msg %></span>
+    <label>
+      Name:
+      <input type="text" name="name" value="<%= locals.prevData?.name %>" />
+    </label>
+  </div>
+
+  <div class="field">
+    <span> <%= locals.errors?.username?.msg %> </span>
+    <label>
+      Username:
+      <input
+        type="text"
+        name="username"
+        value="<%= locals.prevData?.username %>"
+      />
+    </label>
+  </div>
+
+  <div class="field">
+    <span> <%= locals.errors?.password?.msg %> </span>
+    <label> Password: <input type="password" name="password" /> </label>
+  </div>
+
+  <div class="field">
+    <span> <%= locals.errors?.confirm_password?.msg %> </span>
+    <label>
+      Confirm Password: <input type="password" name="confirm_password" />
+    </label>
+  </div>
+
+  <button type="submit">Sign Up</button>
+</form>
+<%- include('partials/footer'); -%>
