@@ -22,3 +22,8 @@ export const validateSignup = [
     })
     .withMessage("Passwords Don't match"),
 ];
+
+export const validateLogin = [
+  body("username").trim().notEmpty().withMessage("Username is required"),
+  body("password").trim().notEmpty().withMessage("Password is required"),
+];

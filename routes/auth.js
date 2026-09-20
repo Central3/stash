@@ -4,12 +4,17 @@ import {
   renderSignup,
   renderLogin,
   signUp,
+  login,
 } from "../controllers/authController.js";
-import { validateSignup } from "../validations/userValidation.js";
+import {
+  validateSignup,
+  validateLogin,
+} from "../validations/userValidation.js";
 
 const router = express.Router();
 
 router.get("/log-in", renderLogin);
+router.post("/log-in", validateLogin, login);
 
 router.get("/sign-up", renderSignup);
 router.post("/sign-up", validateSignup, signUp);

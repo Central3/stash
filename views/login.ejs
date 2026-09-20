@@ -1,7 +1,21 @@
 <%- include('partials/header'); %>
-<form action="/log-in">
-  <label>Username: <input type="tel" name="username" /> </label>
-  <label> Password: <input type="password" name="password" /></label>
+<form action="/log-in" method="POST">
+  <div class="field">
+    <span><%= locals.errors?.username?.msg %></span>
+    <label
+      >Username:
+      <input
+        type="tel"
+        name="username"
+        value="<%= locals.prevData?.username %>"
+      />
+    </label>
+  </div>
+
+  <div class="field">
+    <span><%= locals.errors?.password?.msg %></span>
+    <label> Password: <input type="password" name="password" /></label>
+  </div>
   <button type="submit">Log In</button>
 </form>
 <%- include('partials/footer'); -%>

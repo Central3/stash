@@ -33,3 +33,15 @@ export async function signUp(req, res) {
 export function renderLogin(req, res) {
   res.render("login");
 }
+
+export function login(req, res, next) {
+  const result = validationResult(req);
+
+  if (!result.isEmpty()) {
+    const { password, ...formData } = req.body;
+    return res
+      .status(400)
+      .render("login", { prevData: formData, errors: result.mapped() });
+  }
+  next();
+}
