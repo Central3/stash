@@ -10,6 +10,7 @@ import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 
 import authRouter from "./routes/auth.js";
 import "./config/passport.js";
+import { checkAuthenticated } from "./middleware/authMiddleware.js";
 
 const app = express();
 const port = 3000;
@@ -39,8 +40,8 @@ app.use(
 );
 app.use(passport.session());
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+app.get("/", checkAuthenticated, (req, res) => {
+  res.send(`Hello ${req.user.username}`);
 });
 
 app.use("/", authRouter);

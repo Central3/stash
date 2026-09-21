@@ -11,10 +11,11 @@ import {
   validateSignup,
   validateLogin,
 } from "../validations/userValidation.js";
+import { checkLoggedIn } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/log-in", renderLogin);
+router.get("/log-in", checkLoggedIn, renderLogin);
 router.post(
   "/log-in",
   validateLogin,
@@ -26,7 +27,7 @@ router.post(
   })
 );
 
-router.get("/sign-up", renderSignup);
+router.get("/sign-up", checkLoggedIn, renderSignup);
 router.post("/sign-up", validateSignup, signUp);
 
 export default router;
