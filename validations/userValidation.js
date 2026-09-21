@@ -1,4 +1,5 @@
 import { body } from "express-validator";
+import { prisma } from "../lib/prisma.js";
 
 export const validateSignup = [
   body("name").trim().notEmpty().withMessage("Name is required"),
@@ -7,7 +8,22 @@ export const validateSignup = [
     .notEmpty()
     .withMessage("Username is required")
     .isLength({ min: 3, max: 30 })
-    .withMessage("Username must be between 3 and 30 characters"),
+    .withMessage("Username must be between 3 and 30 characters")
+    .bail()
+    .custom(async (value) => {
+      const user = await prisma.user.findFirst({
+        where: {
+          username: {
+            equals: value,
+            mode: "insensitive",
+          },
+        },
+      });
+
+      if (user) {
+        throw new Error("username already in use");
+      }
+    }),
   body("password")
     .trim()
     .notEmpty()
