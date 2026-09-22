@@ -9,6 +9,7 @@ import { PrismaClient } from "./generated/prisma/index.js";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 
 import authRouter from "./routes/auth.js";
+import rootRouter from "./routes/root.js";
 import "./config/passport.js";
 import { checkAuthenticated } from "./middleware/authMiddleware.js";
 
@@ -40,9 +41,7 @@ app.use(
 );
 app.use(passport.session());
 
-app.get("/", checkAuthenticated, (req, res) => {
-  res.send(`Hello ${req.user.username}`);
-});
+app.use("/", checkAuthenticated, rootRouter);
 
 app.use("/", authRouter);
 
