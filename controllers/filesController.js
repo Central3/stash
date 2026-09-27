@@ -3,8 +3,6 @@ import { prisma } from "../lib/prisma.js";
 export const createFile = async (req, res) => {
   const folderId = req.folder?.id ?? null;
 
-  console.log(req.params);
-
   await prisma.file.create({
     data: {
       name: req.file.originalname,
@@ -14,5 +12,7 @@ export const createFile = async (req, res) => {
       folderId,
     },
   });
-  res.redirect("/");
+
+  const backURL = req.get("Referrer") || "/";
+  res.redirect(backURL);
 };

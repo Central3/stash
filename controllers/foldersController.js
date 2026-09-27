@@ -22,3 +22,12 @@ export const renderFolder = async (req, res) => {
   });
   res.render("folder", { folder, files });
 };
+
+export const deleteFolder = async (req, res) => {
+  const deleteFolder = await prisma.folder.delete({
+    where: {
+      id: req.folder.id,
+    },
+  });
+  res.redirect("/");
+};

@@ -1,6 +1,9 @@
 <%- include("partials/header") %>
 <h1><%= folder.name %></h1>
 <%- include('partials/new-file-dialog') %>
+<form action="/folders/<%= folder.id %>/delete" method="POST">
+  <button>Delete</button>
+</form>
 <div class="files">
   <% files.forEach(file => { %>
   <div><%= file.name %> <% }) %></div>
