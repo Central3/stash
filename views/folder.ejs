@@ -1,0 +1,9 @@
+<%- include("partials/header") %>
+<h1><%= folder.name %></h1>
+<%- include('partials/new-file-dialog') %>
+<div class="files">
+  <% files.forEach(file => { %>
+  <div><%= file.name %> <% }) %></div>
+</div>
+
+<%- include("partials/footer") %>

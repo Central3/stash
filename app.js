@@ -10,8 +10,9 @@ import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 
 import authRouter from "./routes/auth.js";
 import rootRouter from "./routes/root.js";
+import foldersRouter from "./routes/folders.js";
+import filesRouter from "./routes/files.js";
 import "./config/passport.js";
-import { checkAuthenticated } from "./middleware/authMiddleware.js";
 
 const app = express();
 const port = 3000;
@@ -24,6 +25,7 @@ const prisma = new PrismaClient({ adapter });
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(
   session({
     cookie: {
@@ -41,9 +43,10 @@ app.use(
 );
 app.use(passport.session());
 
-app.use("/", checkAuthenticated, rootRouter);
-
+app.use("/", rootRouter);
 app.use("/", authRouter);
+app.use("/", foldersRouter);
+app.use("/", filesRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

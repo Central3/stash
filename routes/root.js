@@ -1,22 +1,18 @@
-import path from "node:path";
-
 import express from "express";
-import multer from "multer";
+
+import { prisma } from "../lib/prisma.js";
+import { checkAuthenticated } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-const uploadPath = path.join(import.meta.dirname, "..", "uploads");
-const upload = multer({
-  dest: uploadPath,
-});
-
-router.get("/", (req, res) => {
-  res.render("index");
-});
-
-router.post("/upload", upload.single("file"), (req, res) => {
-  console.log(req.file);
-  res.redirect("/");
+router.get("/", checkAuthenticated, async (req, res) => {
+  const folders = await prisma.folder.findMany({
+    where: { userId: req.user.id },
+  });
+  const files = await prisma.file.findMany({
+    where: { folderId: null, userId: req.user.id },
+  });
+  res.render("index", { username: req.user.username, folders, files });
 });
 
 export default router;
