@@ -30,4 +30,13 @@ router.post(
 router.get("/sign-up", checkLoggedIn, renderSignup);
 router.post("/sign-up", validateSignup, signUp);
 
+router.get("/log-out", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/log-in");
+  });
+});
+
 export default router;

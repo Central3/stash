@@ -1,12 +1,19 @@
 <%- include('partials/header'); %>
-<h1>Hello</h1>
-<form action="/upload" method="POST" enctype="multipart/form-data">
-  <label>
-    Choose file to upload
-    <input type="file" name="file" />
-  </label>
+<h1>Hello <%= username %></h1>
+<a href="/log-out">Log Out</a>
+
+<%- include('partials/new-folder-dialog') %> <%-
+include('partials/new-file-dialog') %>
+
+<div class="folders">
+  <% folders.forEach(folder => { %>
   <div>
-    <button>Upload</button>
+    <a href="/folders/<%= folder.id %>"><%= folder.name %></a>
   </div>
-</form>
+  <% }) %>
+</div>
+<div class="files">
+  <% files.forEach(file => { %>
+  <div><%= file.name %> <% }) %></div>
+</div>
 <%- include('partials/footer'); -%>
