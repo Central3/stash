@@ -1,7 +1,6 @@
 import express from "express";
 
 import {
-  renderCreateFolder,
   createFolder,
   renderFolder,
   deleteFolder,
@@ -10,8 +9,8 @@ import loadFolder from "../middleware/loadFolder.js";
 
 const router = express.Router();
 
-router.get("/folders/new", renderCreateFolder);
 router.post("/folders", createFolder);
+router.post("/folders/:folderId", loadFolder, createFolder);
 router.get("/folders/:folderId", loadFolder, renderFolder);
 router.post("/folders/:folderId/delete", loadFolder, deleteFolder);
 

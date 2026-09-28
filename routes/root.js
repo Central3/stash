@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get("/", checkAuthenticated, async (req, res) => {
   const folders = await prisma.folder.findMany({
-    where: { userId: req.user.id },
+    where: { userId: req.user.id, parentId: null },
   });
   const files = await prisma.file.findMany({
     where: { folderId: null, userId: req.user.id },

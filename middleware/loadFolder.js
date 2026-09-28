@@ -4,6 +4,10 @@ export default async function loadFolder(req, res, next) {
   const { folderId } = req.params;
   const folder = await prisma.folder.findUnique({
     where: { id: Number(folderId), userId: req.user.id },
+    include: {
+      children: true,
+      files: true,
+    },
   });
 
   if (!folder) {

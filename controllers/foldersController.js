@@ -1,14 +1,13 @@
 import { prisma } from "../lib/prisma.js";
 
-export const renderCreateFolder = (req, res) => {
-  res.render("create-folder");
-};
-
 export const createFolder = async (req, res) => {
+  const folderId = req.folder?.id ?? null;
+
   await prisma.folder.create({
     data: {
       name: req.body.title,
       userId: req.user.id,
+      parentId: folderId,
     },
   });
   res.redirect("/");
@@ -17,10 +16,7 @@ export const createFolder = async (req, res) => {
 export const renderFolder = async (req, res) => {
   const folder = req.folder;
 
-  const files = await prisma.file.findMany({
-    where: { folderId: folder.id, userId: req.user.id },
-  });
-  res.render("folder", { folder, files });
+  res.render("folder", { folder });
 };
 
 export const deleteFolder = async (req, res) => {
