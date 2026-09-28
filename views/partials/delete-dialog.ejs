@@ -1,0 +1,9 @@
+<button data-open-modal="#delete-dialog">Delete</button>
+
+<dialog id="delete-dialog">
+    Confirm Delete
+    <form action="/folders/<%= folder.id %>/delete" method="POST">
+        <button>Yes</button>
+        <button type="button" data-close-modal>No</button>
+      </form>
+</dialog>
