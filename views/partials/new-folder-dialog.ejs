@@ -1,9 +1,9 @@
-<button id="open-folder-modal">New Folder</button>
+<button data-open-modal="#newfolder-dialog">New Folder</button>
 
 <dialog id="newfolder-dialog">
   <form action="/folders" method="POST">
     <label> Title: <input type="text" name="title" id="form_title" /> </label>
     <button type="submit">Create Folder</button>
-    <button type="button" id="close-folder-modal">Cancel</button>
+    <button type="button" data-close-modal>Cancel</button>
   </form>
 </dialog>

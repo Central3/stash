@@ -1,23 +1,17 @@
-const newFileDialog = document.querySelector("#newfile-dialog");
-const openFileModal = document.querySelector("#open-file-modal");
-const closeFileModal = document.querySelector("#close-file-modal");
+const openModalTrigger = document.querySelectorAll("[data-open-modal]");
+const closeModalTrigger = document.querySelectorAll("[data-close-modal]");
 
-const newFolderDialog = document.querySelector("#newfolder-dialog");
-const openFolderModal = document.querySelector("#open-folder-modal");
-const closeFolderModal = document.querySelector("#close-folder-modal");
-
-openFileModal.addEventListener("click", () => {
-  newFileDialog.showModal();
+openModalTrigger.forEach((trigger) => {
+  trigger.addEventListener("click", (event) => {
+    const modal = document.querySelector(trigger.dataset.openModal);
+    modal?.showModal();
+  });
 });
 
-closeFileModal.addEventListener("click", () => {
-  newFileDialog.close();
-});
-
-openFolderModal.addEventListener("click", () => {
-  newFolderDialog.showModal();
-});
-
-closeFolderModal.addEventListener("click", () => {
-  newFolderDialog.close();
+closeModalTrigger.forEach((trigger) => {
+  trigger.addEventListener("click", (event) => {
+    const modal = trigger.closest("dialog");
+    modal.querySelector("form")?.reset();
+    modal?.close();
+  });
 });
