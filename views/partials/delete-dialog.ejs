@@ -3,6 +3,10 @@
 <dialog id="delete-dialog">
     Confirm Delete
     <form action="/folders/<%= folder.id %>/delete" method="POST">
+        <label>
+            <input type="checkbox" name="keep_files" id="keep_files"> Keep Files
+        </label>
+        
         <button>Yes</button>
         <button type="button" data-close-modal>No</button>
       </form>

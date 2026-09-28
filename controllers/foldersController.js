@@ -24,6 +24,16 @@ export const renderFolder = async (req, res) => {
 };
 
 export const deleteFolder = async (req, res) => {
+  const { keep_files } = req.body;
+
+  if (!keep_files) {
+    const deleteFiles = await prisma.file.deleteMany({
+      where: {
+        folderId: req.folder.id,
+      },
+    });
+  }
+
   const deleteFolder = await prisma.folder.delete({
     where: {
       id: req.folder.id,
