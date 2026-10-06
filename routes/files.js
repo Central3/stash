@@ -4,13 +4,17 @@ import expess from "express";
 import multer from "multer";
 
 import loadFolder from "../middleware/loadFolder.js";
+import {
+  createFile,
+  renderFile,
+  downloadFile,
+} from "../controllers/filesController.js";
+import loadFile from "../middleware/loadFile.js";
 
 const uploadPath = path.join(import.meta.dirname, "..", "uploads");
 const upload = multer({
   dest: uploadPath,
 });
-
-import { createFile } from "../controllers/filesController.js";
 
 const router = expess.Router();
 
@@ -21,5 +25,7 @@ router.post(
   upload.single("file"),
   createFile
 );
+router.get("/files/:fileId", loadFile, renderFile);
+router.get("/files/:fileId/download", loadFile, downloadFile);
 
 export default router;

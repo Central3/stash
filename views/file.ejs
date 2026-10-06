@@ -1,0 +1,8 @@
+<%- include("partials/header") %>
+<h1>File Information</h1>
+<p>Name: <%= file.name %></p>
+<p>Type: <%= file.mimetype %></p>
+<p>Size: <%= file.size %> bytes</p>
+<p>Create At: <%= file.formattedDate %></p>
+<a href="/files/<%= file.id %>/download"><button>Download</button></a>
+<%- include("partials/footer") %>

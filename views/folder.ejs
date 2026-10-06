@@ -9,7 +9,6 @@ include('partials/new-file-dialog') %> <%- include('partials/delete-dialog') %>
 </div>
 <div class="files">
   <% folder.files.forEach(file => { %>
-  <div><%= file.name %> <% }) %></div>
+  <a href="/files/<%= file.id %>"> <%= file.name %> <% }) %> </a>
 </div>
-
 <%- include("partials/footer") %>

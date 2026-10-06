@@ -10,7 +10,9 @@ export const createFolder = async (req, res) => {
       parentId: folderId,
     },
   });
-  res.redirect("/");
+
+  const backURL = req.get("Referrer") || "/";
+  res.redirect(backURL);
 };
 
 export const renderFolder = async (req, res) => {
@@ -35,5 +37,10 @@ export const deleteFolder = async (req, res) => {
       id: req.folder.id,
     },
   });
+
+  if (deleteFolder.parentId) {
+    return res.redirect(`/folders/${deleteFolder.parentId}`);
+  }
+
   res.redirect("/");
 };
