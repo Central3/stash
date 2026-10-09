@@ -12,7 +12,7 @@ router.get("/", checkAuthenticated, async (req, res) => {
   const files = await prisma.file.findMany({
     where: { folderId: null, userId: req.user.id },
   });
-  res.render("index", { username: req.user.username, folders, files });
+  res.render("index", { user: req.user, folders, files });
 });
 
 export default router;

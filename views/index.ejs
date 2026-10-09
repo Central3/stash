@@ -1,19 +1,24 @@
 <%- include('partials/header'); %>
-<h1>Hello <%= username %></h1>
-<a href="/log-out">Log Out</a>
+<div class="dashboard">
+  <aside class="dashboard__sidebar">
+    <%- include('partials/new-folder-dialog') %> <%-
+    include('partials/new-file-dialog') %>
+  </aside>
 
-<%- include('partials/new-folder-dialog') %> <%-
-include('partials/new-file-dialog') %>
-
-<div class="folders">
-  <% folders.forEach(folder => { %>
-  <div>
-    <a href="/folders/<%= folder.id %>"><%= folder.name %></a>
-  </div>
-  <% }) %>
-</div>
-<div class="files">
-  <% files.forEach(file => { %>
-  <a href="/files/<%= file.id %>"> <%= file.name %> <% }) %> </a>
+  <main class="dashboard__content">
+    <div class="folder-list">
+      <% folders.forEach(folder => { %>
+      <div class="folder-list__item">
+        <a href="/folders/<%= folder.id %>"><%= folder.name %></a>
+      </div>
+      <% }) %>
+    </div>
+    <div class="file-list">
+      <% files.forEach(file => { %>
+      <div class="file-list__item">
+        <a href="/files/<%= file.id %>"> <%= file.name %> <% }) %> </a>
+      </div>
+    </div>
+  </main>
 </div>
 <%- include('partials/footer'); %>
