@@ -18,7 +18,7 @@ export const createFolder = async (req, res) => {
 export const renderFolder = async (req, res) => {
   const folder = req.folder;
 
-  res.render("folder", { folder });
+  res.render("folder", { folder, user: req.user });
 };
 
 export const deleteFolder = async (req, res) => {

@@ -45,12 +45,11 @@ model File {
   name        String
   size        Int
   mimetype    String
-  path        String
-  destination String
-  fileName    String
   createdAt   DateTime @default(now())
-  folder      Folder?  @relation(fields: [folderId], references: [id])
-  folderId    Int?
-  user        User     @relation(fields: [userId], references: [id])
-  userId      Int
+  storagePath String
+
+  folder   Folder? @relation(fields: [folderId], references: [id])
+  folderId Int?
+  user     User    @relation(fields: [userId], references: [id])
+  userId   Int
 }

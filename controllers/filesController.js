@@ -1,17 +1,37 @@
+import crypto from "node:crypto";
+
 import { prisma } from "../lib/prisma.js";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SECRET_KEY
+);
 
 export const createFile = async (req, res) => {
   const folderId = req.folder?.id ?? null;
+  const uniqueFileName = `${crypto.randomUUID()}-${req.file.originalname}`;
+  const storagePath = `files/${uniqueFileName}`;
+
+  const { data, error } = await supabase.storage
+    .from("stash_storage")
+    .upload(storagePath, req.file.buffer, {
+      upsert: false,
+      contentType: req.file.mimetype,
+    });
+
+  if (error) {
+    console.error("Error uploading file: ", error);
+    return;
+  }
 
   await prisma.file.create({
     data: {
       name: req.file.originalname,
       size: req.file.size,
       mimetype: req.file.mimetype,
-      path: req.file.path,
-      destination: req.file.destination,
-      fileName: req.file.filename,
       userId: req.user.id,
+      storagePath,
       folderId,
     },
   });
@@ -27,16 +47,15 @@ export const renderFile = async (req, res) => {
     timeStyle: "short",
   }).format(file.createAt);
 
-  res.render("file", { file: { ...file, formattedDate } });
+  res.render("file", { file: { ...file, formattedDate }, user: req.user });
 };
 
 export const downloadFile = async (req, res, next) => {
   const file = req.file;
 
-  res.download(file.path, file.name, function (err) {
-    if (!err) return;
+  const { data, error } = await supabase.storage
+    .from("stash_storage")
+    .createSignedUrl(file.storagePath, 60, { download: file.name });
 
-    res.statusCode = 404;
-    res.send("Can't find that file, sorry!");
-  });
+  res.redirect(data.signedUrl);
 };

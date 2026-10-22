@@ -11,10 +11,8 @@ import {
 } from "../controllers/filesController.js";
 import loadFile from "../middleware/loadFile.js";
 
-const uploadPath = path.join(import.meta.dirname, "..", "uploads");
-const upload = multer({
-  dest: uploadPath,
-});
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 const router = expess.Router();
 
