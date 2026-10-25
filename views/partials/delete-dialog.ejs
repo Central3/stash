@@ -1,13 +1,15 @@
 <button data-open-modal="#delete-dialog">Delete</button>
 
-<dialog id="delete-dialog">
+<dialog class="modal" id="delete-dialog">
     Confirm Delete
-    <form action="/folders/<%= folder.id %>/delete" method="POST">
+    <form class="modal__form" action="/folders/<%= folder.id %>/delete" method="POST">
         <label>
             <input type="checkbox" name="keep_files" id="keep_files"> Keep Files
         </label>
         
-        <button>Yes</button>
-        <button type="button" data-close-modal>No</button>
+        <div class="modal__actions">
+           <button>Yes</button>
+            <button type="button" data-close-modal>No</button> 
+        </div>
       </form>
 </dialog>

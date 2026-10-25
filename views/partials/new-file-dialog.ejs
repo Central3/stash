@@ -1,7 +1,8 @@
 <button data-open-modal="#newfile-dialog">New File</button>
 
-<dialog id="newfile-dialog">
+<dialog class="modal" id="newfile-dialog">
   <form
+  class="modal__form"
     action="<%= locals.folder?.id ? `/folders/${folder.id}/files` : '/files' %>"
     method="POST"
     enctype="multipart/form-data"
@@ -10,7 +11,7 @@
       Choose file to upload
       <input type="file" name="file" required />
     </label>
-    <div>
+    <div class="modal__actions">
       <button type="submit">Upload</button>
       <button type="button" data-close-modal>Close</button>
     </div>

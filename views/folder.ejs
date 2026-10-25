@@ -7,6 +7,9 @@
     %>
   </aside>
 
+  <% if (!folder.children.length && !folder.files.length) { %>
+  <p>It's Empty</p>
+  <% } else { %>
   <main class="dashboard__content">
     <div class="folder-list">
       <% folder.children.forEach(folder => { %>
@@ -18,10 +21,11 @@
     <div class="file-list">
       <% folder.files.forEach(file => { %>
       <div class="file-list__item">
-        <a href="/files/<%= file.id %>"> <%= file.name %> <% }) %> </a>
+        <a href="/files/<%= file.id %>"> <%= file.name %> </a>
       </div>
+      <% }) %>
     </div>
   </main>
+  <% } %>
 </div>
-
 <%- include("partials/footer") %>

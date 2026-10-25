@@ -6,6 +6,6 @@
   <p>Size: <%= file.size %> bytes</p>
   <p>Create At: <%= file.formattedDate %></p>
   <a href="/files/<%= file.id %>/download"><button>Download</button></a>
+  <%- include("partials/delete-file-dialog") %>
 </main>
-
 <%- include("partials/footer") %>

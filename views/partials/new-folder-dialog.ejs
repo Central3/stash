@@ -1,9 +1,11 @@
 <button data-open-modal="#newfolder-dialog">New Folder</button>
 
-<dialog id="newfolder-dialog">
-  <form action="<%= locals.folder?.id ? `/folders/${folder.id}` : '/folders' %>" method="POST">
+<dialog class="modal" id="newfolder-dialog">
+  <form class="modal__form" action="<%= locals.folder?.id ? `/folders/${folder.id}` : '/folders' %>" method="POST">
     <label> Title: <input type="text" name="title" id="form_title" /> </label>
-    <button type="submit">Create Folder</button>
+    <div class="modal__actions">
+      <button type="submit">Create Folder</button>
     <button type="button" data-close-modal>Cancel</button>
+    </div>
   </form>
 </dialog>

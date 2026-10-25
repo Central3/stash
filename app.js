@@ -13,6 +13,7 @@ import rootRouter from "./routes/root.js";
 import foldersRouter from "./routes/folders.js";
 import filesRouter from "./routes/files.js";
 import "./config/passport.js";
+import { checkAuthenticated } from "./middleware/authMiddleware.js";
 
 const app = express();
 const port = 3000;
@@ -45,8 +46,8 @@ app.use(passport.session());
 
 app.use("/", rootRouter);
 app.use("/", authRouter);
-app.use("/", foldersRouter);
-app.use("/", filesRouter);
+app.use("/folders", checkAuthenticated, foldersRouter);
+app.use("/files", checkAuthenticated, filesRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -1,0 +1,9 @@
+<button data-open-modal="#deletefile-dialog">Delete</button>
+
+<dialog class="modal" id="deletefile-dialog">
+    Confirm Delete?
+    <form class="" action="/files/<%= file.id %>/delete" method="POST">
+        <button>Yes</button>
+        <button type="button" data-close-modal>No</button>
+    </form>
+</dialog>

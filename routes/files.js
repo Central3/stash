@@ -1,29 +1,19 @@
-import path from "node:path";
-
 import expess from "express";
-import multer from "multer";
 
-import loadFolder from "../middleware/loadFolder.js";
 import {
   createFile,
   renderFile,
   downloadFile,
+  deleteFile,
 } from "../controllers/filesController.js";
 import loadFile from "../middleware/loadFile.js";
-
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+import { upload } from "../middleware/upload.js";
 
 const router = expess.Router();
 
-router.post("/files", upload.single("file"), createFile);
-router.post(
-  "/folders/:folderId/files",
-  loadFolder,
-  upload.single("file"),
-  createFile
-);
-router.get("/files/:fileId", loadFile, renderFile);
-router.get("/files/:fileId/download", loadFile, downloadFile);
+router.post("/", upload.single("file"), createFile);
+router.get("/:fileId", loadFile, renderFile);
+router.get("/:fileId/download", loadFile, downloadFile);
+router.post("/:fileId/delete", loadFile, deleteFile);
 
 export default router;
